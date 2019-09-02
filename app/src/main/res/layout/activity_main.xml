@@ -10,7 +10,13 @@
         android:id="@+id/screen_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="录屏"
+        android:text="不固定帧率录屏"
+        />
+    <Button
+        android:id="@+id/screen_cfr_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="固定帧率录屏"
         />
     <Button
         android:id="@+id/camera_btn"
