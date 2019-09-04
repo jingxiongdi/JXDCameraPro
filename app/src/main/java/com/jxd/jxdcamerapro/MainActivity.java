@@ -11,6 +11,7 @@ import android.media.projection.MediaProjectionManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -18,8 +19,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.jxd.jxdcamerapro.base.BaseActivity;
+import com.jxd.jxdcamerapro.player.NetPlayerActivity;
 import com.jxd.jxdcamerapro.screen.ScreenRecorder;
 import com.jxd.jxdcamerapro.screencfr.MediaEncoder;
+import com.jxd.jxdcamerapro.simulatekey.SimulateKeyService;
 import com.jxd.jxdcamerapro.utils.ACache;
 
 import java.io.File;
@@ -35,7 +38,11 @@ public class MainActivity extends BaseActivity{
     //CFR
     private MediaEncoder encoder;
     private Button cfrBtn = null;
-    private boolean bCFRMode = false;
+    private volatile boolean bCFRMode = false;
+
+    private Button playerBtn = null;
+
+    private Button simulateKeyBtn = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +50,19 @@ public class MainActivity extends BaseActivity{
         setContentView(R.layout.activity_main);
 
         screenBtn = (Button) findViewById(R.id.screen_btn);
+        simulateKeyBtn = (Button) findViewById(R.id.simulate_key_btn);
+        simulateKeyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!SimulateKeyService.isAccessibilitySettingsOn(MainActivity.this)){
+                    Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                    startActivity(intent);
+                }else{
+                    startService(new Intent(MainActivity.this, SimulateKeyService.class));
+                }
+
+            }
+        });
 
         String key = ACache.get(MainActivity.this).getAsString("ScreenRecorder");
         if(TextUtils.isEmpty(key) || key.equals("false")){
@@ -75,7 +95,7 @@ public class MainActivity extends BaseActivity{
         cfrBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Log.d("aa","bCFRMode "+bCFRMode);
                 if(!bCFRMode){
                     bCFRMode = true;
                     Toast.makeText(MainActivity.this,"开始固定帧率录屏",Toast.LENGTH_SHORT).show();
@@ -86,6 +106,15 @@ public class MainActivity extends BaseActivity{
                     encoder.stopScreen();
                     Toast.makeText(MainActivity.this,"结束固定帧率录屏",Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        playerBtn = (Button) findViewById(R.id.player_btn);
+        playerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, NetPlayerActivity.class);
+                startActivity(intent);
             }
         });
     }
