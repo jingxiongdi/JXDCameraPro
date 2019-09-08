@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.hardware.display.DisplayManager;
 import android.media.projection.MediaProjection;
 import android.media.projection.MediaProjectionManager;
 import android.os.Build;
@@ -24,6 +23,7 @@ import com.jxd.jxdcamerapro.screen.ScreenRecorder;
 import com.jxd.jxdcamerapro.screencfr.MediaEncoder;
 import com.jxd.jxdcamerapro.simulatekey.SimulateKeyService;
 import com.jxd.jxdcamerapro.utils.ACache;
+import com.jxd.jxdcamerapro.yuv.YuvReaderActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,6 +48,8 @@ public class MainActivity extends BaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        setBtn();
 
         screenBtn = (Button) findViewById(R.id.screen_btn);
         simulateKeyBtn = (Button) findViewById(R.id.simulate_key_btn);
@@ -115,6 +117,15 @@ public class MainActivity extends BaseActivity{
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, NetPlayerActivity.class);
                 startActivity(intent);
+            }
+        });
+    }
+
+    private void setBtn() {
+        findViewById(R.id.yuv_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, YuvReaderActivity.class));
             }
         });
     }

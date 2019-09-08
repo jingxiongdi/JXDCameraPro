@@ -30,8 +30,7 @@ public class NetPlayerActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if(!TextUtils.isEmpty(editText.getText())){
-                    Uri uri = Uri.parse( editText.getText().toString() );
-                    videoView.setVideoURI(uri);
+                    videoView.setVideoPath(editText.getText().toString() );
                     videoView.start();
                 }
 

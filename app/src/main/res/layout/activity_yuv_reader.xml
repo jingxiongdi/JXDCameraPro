@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:id="@+id/trans_to_yuv_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="转换成yuv"
+            />
+        <Button
+            android:id="@+id/yuv_reader_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="yuv查看"
+            />
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/yuv_shower_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout> 
